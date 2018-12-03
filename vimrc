@@ -24,6 +24,8 @@ Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'vim-scripts/c.vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 " Plugin 'vim-latex/vim-latex'
 " Plugin 'valloric/youcompleteme'
 " Plugin 'nvie/vim-flake8'
@@ -143,6 +145,23 @@ nmap <C-n> :NERDTreeToggle<CR>
 " set iskeyword+=:
 " " autocmd BufEnter *.tex
 " set sw=2
+
+" ----------vim-airline---------- "
+" set laststatus=2                                                     " 永远显示状态栏
+" let g:airline_powerline_fonts = 1                                    " 支持 powerline 字体
+" let g:airline#extensions#tabline#enabled = 1                         " 显示窗口tab和buffer
+" let g:airline_section_y = 'BN: %{bufnr("%")}'
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+let g:airline_symbols.space="\ua0"
+let g:airline_exclude_filename=[]
+let g:Powerline_symbols='fancy'
+let g:airline_powerline_fonts=0
+let Powerline_symbols='fancy'
+let g:bufferline_echo=0
+set laststatus=2
+set t_Co=256
 
 " ----------Autowitre---------- "
 autocmd BufNewFile *.py,*.sh exec ":call WriteInfo()"
