@@ -147,21 +147,31 @@ nmap <C-n> :NERDTreeToggle<CR>
 " set sw=2
 
 " ----------vim-airline---------- "
-" set laststatus=2                                                     " 永远显示状态栏
+set laststatus=2                                                     " 永远显示状态栏
+set t_Co=256                                                         " 终端256色
+let g:airline#extensions#tabline#enabled = 1                         " 显示窗口tab和buffer
 " let g:airline_powerline_fonts = 1                                    " 支持 powerline 字体
-" let g:airline#extensions#tabline#enabled = 1                         " 显示窗口tab和buffer
 " let g:airline_section_y = 'BN: %{bufnr("%")}'
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-let g:airline_symbols.space="\ua0"
-let g:airline_exclude_filename=[]
-let g:Powerline_symbols='fancy'
-let g:airline_powerline_fonts=0
-let Powerline_symbols='fancy'
-let g:bufferline_echo=0
-set laststatus=2
-set t_Co=256
+
+" if !exists('g:airline_symbols')
+    " let g:airline_symbols = {}
+" endif
+" let g:airline_symbols.space="\ua0"
+" let g:airline_exclude_filename=[]
+" let g:Powerline_symbols='fancy'
+" let g:airline_powerline_fonts=0
+" let Powerline_symbols='fancy'
+" let g:bufferline_echo=0
+
+function! AirlineInit()
+    let g:airline_section_a = airline#section#create(['mode', ' ', 'branch'])
+    let g:airline_section_b = airline#section#create_left(['ffenc', 'hunks', '%f'])
+    let g:airline_section_c = airline#section#create(['filetype'])
+    let g:airline_section_x = airline#section#create(['%P'])
+    let g:airline_section_y = airline#section#create(['%B'])
+    let g:airline_section_z = airline#section#create_right(['%l', '%c'])
+endfunction
+autocmd VimEnter * call AirlineInit()
 
 " ----------Autowitre---------- "
 autocmd BufNewFile *.py,*.sh exec ":call WriteInfo()"
