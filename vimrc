@@ -122,9 +122,11 @@ nmap <Leader><space> :nohlsearch<cr>
 
 " ----------Jedi---------- "
 " let g:jedi#popup_on_dot=0
+let g:jedi#auto_initialization = 1                                   " Automatically initialize jedi-vim
+let g:jedi#auto_vim_configuration = 1                                " Automatically initialized 
 
 " ----------NERD Commenter---------- "
-let g:NERDSpaceDelims = 1                                                 " Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1                                            " Add spaces after comment delimiters by default
 
 " ----------NERD Tree---------- "
 nmap <C-n> :NERDTreeToggle<CR>                                           
