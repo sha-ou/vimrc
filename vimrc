@@ -11,25 +11,80 @@ call vundle#begin('~/.vim/bundle')
     " alternatively, pass a path where Vundle should install plugins
     " call vundle#begin('~/some/path/here')
     " let Vundle manage Vundle, required
+    
 Plugin 'gmarik/Vundle.vim'
+
 " Plugin 'scrooloose/syntastic'
+     " set statusline+=%#warningmsg#
+     " set statusline+=%{SyntasticStatuslineFlag()}
+     " set statusline+=%*
+     " let g:syntastic_always_populate_loc_list = 1
+     " let g:syntastic_auto_loc_list = 1
+     " let g:syntastic_check_on_open = 1
+     " let g:syntastic_check_on_wq = 0
+
 Plugin 'jnurmine/Zenburn'
 Plugin 'altercation/vim-colors-solarized'
+
 Plugin 'davidhalter/jedi-vim'
+    " let g:jedi#popup_on_dot=0
+    let g:jedi#auto_initialization = 1                                   " Automatically initialize jedi-vim
+    let g:jedi#auto_vim_configuration = 1                                " Automatically initialized 
+
 Plugin 'ervandew/supertab'
 Plugin 'jiangmiao/auto-pairs'
+
 Plugin 'scrooloose/nerdcommenter'
+    let g:NERDSpaceDelims = 1                                            " Add spaces after comment delimiters by default
+
 Plugin 'scrooloose/nerdtree'
+    nmap <C-n> :NERDTreeToggle<CR>                                           
+
 Plugin 'godlygeek/tabular'
+   "  if exists(":Tabularize")
+		" nmap <Leader>a= :Tabularize /=<CR>
+		" vmap <Leader>a= :Tabularize /=<CR>
+		" nmap <Leader>a: :Tabularize /:<CR>
+		" vmap <Leader>a: :Tabularize /:<CR>
+		" nmap <Leader>a, :Tabularize /,<CR>
+		" vmap <Leader>a, :Tabularize /,<CR>
+	" endif
+	
 Plugin 'plasticboy/vim-markdown'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'vim-scripts/c.vim'
+
 Plugin 'vim-airline/vim-airline'
+	set laststatus=2                                                     " 永远显示状态栏
+	set t_Co=256                                                         " 终端256色
+	let g:airline#extensions#tabline#enabled = 1                         " 显示窗口tab和buffer
+    " let g:airline_powerline_fonts = 1                                    " 支持 powerline 字体
+"     let g:airline_section_y = 'BN: %{bufnr("%")}'
+
+    " if !exists('g:airline_symbols')
+     " let g:airline_symbols = {}
+    " endif
+    " let g:airline_symbols.space="\ua0"
+    " let g:airline_exclude_filename=[]
+    " let g:Powerline_symbols='fancy'
+    " let g:airline_powerline_fonts=0
+    " let Powerline_symbols='fancy'
+    " let g:bufferline_echo=0
+
 Plugin 'vim-airline/vim-airline-themes'
+
 " Plugin 'vim-latex/vim-latex'
+" set grepprg=grep\ -nH\ $*
+" let g:tex_flavor='latex'
+" set iskeyword+=:
+" " autocmd BufEnter *.tex
+" set sw=2
+
 " Plugin 'valloric/youcompleteme'
 " Plugin 'nvie/vim-flake8'
+"
 call vundle#end()                                                         " All of your Plugins must be added before the following line
+
 filetype on
 filetype plugin on
 filetype plugin indent on                                                 " required
@@ -92,7 +147,11 @@ endfunc
 " ---------Auto-Commands---------- "
 
 " Automaticaly source the Vimrc file on save
-autocmd BufWritePost ~/.vim/vimrc source %
+" autocmd BufWritePost ~/.vim/vimrc source %
+
+" ---------Mappings---------- "
+nmap <Leader>ev :e ~/.vim/vimrc<cr>
+nmap <Leader><space> :nohlsearch<cr>
 
 
 " ---------Split-Management---------- "
@@ -102,68 +161,6 @@ nmap <C-J> <C-W><C-J>
 nmap <C-K> <C-W><C-K>
 nmap <C-H> <C-W><C-H>
 nmap <C-L> <C-W><C-L>
-
-" ---------Mappings---------- "
-nmap <Leader>ev :e ~/.vim/vimrc<cr>
-nmap <Leader><space> :nohlsearch<cr>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Plugin Config
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" ----------syntastic---------- "
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
-
-" ----------Jedi---------- "
-" let g:jedi#popup_on_dot=0
-let g:jedi#auto_initialization = 1                                   " Automatically initialize jedi-vim
-let g:jedi#auto_vim_configuration = 1                                " Automatically initialized 
-
-" ----------NERD Commenter---------- "
-let g:NERDSpaceDelims = 1                                            " Add spaces after comment delimiters by default
-
-" ----------NERD Tree---------- "
-nmap <C-n> :NERDTreeToggle<CR>                                           
-
-" ----------Tabluar---------- "
-" if exists(":Tabularize")
-    " nmap <Leader>a= :Tabularize /=<CR>
-    " vmap <Leader>a= :Tabularize /=<CR>
-    " nmap <Leader>a: :Tabularize /:<CR>
-    " vmap <Leader>a: :Tabularize /:<CR>
-    " nmap <Leader>a, :Tabularize /,<CR>
-    " vmap <Leader>a, :Tabularize /,<CR>
-" endif
-
-" ----------vim-latex---------- "
-" set grepprg=grep\ -nH\ $*
-" let g:tex_flavor='latex'
-" set iskeyword+=:
-" " autocmd BufEnter *.tex
-" set sw=2
-
-" ----------vim-airline---------- "
-set laststatus=2                                                     " 永远显示状态栏
-set t_Co=256                                                         " 终端256色
-let g:airline#extensions#tabline#enabled = 1                         " 显示窗口tab和buffer
-" let g:airline_powerline_fonts = 1                                    " 支持 powerline 字体
-" let g:airline_section_y = 'BN: %{bufnr("%")}'
-
-" if !exists('g:airline_symbols')
-    " let g:airline_symbols = {}
-" endif
-" let g:airline_symbols.space="\ua0"
-" let g:airline_exclude_filename=[]
-" let g:Powerline_symbols='fancy'
-" let g:airline_powerline_fonts=0
-" let Powerline_symbols='fancy'
-" let g:bufferline_echo=0
 
 function! AirlineInit()
     let g:airline_section_a = airline#section#create(['mode', ' ', 'branch'])
@@ -203,12 +200,12 @@ func! WriteInfo()
     elseif &filetype == 'c'
         call setline(1,"/*  */")
         call append(line("."),"")
-        call append(line(".")+1,"/*******************************************************************")
+        call append(line(".")+1,"/*************************************************/")
         call append(line(".")+2,"*    File name     : ".expand("%:t"))
         call append(line(".")+3,"*    Author        : sha-ou")
         call append(line(".")+4,"*    Date          : ".strftime("%c"))
         call append(line(".")+5,"*    Description   : ")
-        call append(line(".")+6,"******************************************************************/")
+        call append(line(".")+6,"**************************************************/")
         call append(line(".")+7,"")
         call append(line(".")+8,"")
     endif
