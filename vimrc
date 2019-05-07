@@ -39,6 +39,7 @@ Plugin 'scrooloose/nerdcommenter'
 
 Plugin 'scrooloose/nerdtree'
     nmap <C-n> :NERDTreeToggle<CR>                                           
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 Plugin 'godlygeek/tabular'
    "  if exists(":Tabularize")
@@ -50,8 +51,9 @@ Plugin 'godlygeek/tabular'
 		" vmap <Leader>a, :Tabularize /,<CR>
 	" endif
 	
-Plugin 'plasticboy/vim-markdown'
-Plugin 'suan/vim-instant-markdown'
+" Plugin 'plasticboy/vim-markdown'
+" Plugin 'suan/vim-instant-markdown'
+"
 Plugin 'vim-scripts/c.vim'
 
 Plugin 'vim-airline/vim-airline'
@@ -83,6 +85,22 @@ Plugin 'vim-airline/vim-airline-themes'
 " Plugin 'valloric/youcompleteme'
 " Plugin 'nvie/vim-flake8'
 "
+
+Plugin 'majutsushi/tagbar'
+    let g:tagbar_ctags_bin='/usr/bin/ctags'
+    let g:tagbar_right=1
+    let g:tagbar_autopreview=0
+    let g:tagbar_autoclose=0
+    let g:tagbar_autofocus=0
+    let g:tagbar_sort=0
+    let g:tagbar_show_linenumbers=1
+    " autocmd VimEnter * nested :call tagbar#autoopen(1)
+    " autocmd FileType * nested :call tagbar#autoopen(0)
+    " autocmd BufEnter * nested :call tagbar#autoopen(0)
+    " autocmd FileType c,cpp,h,hpp,py nested :TagbarOpen
+    map <C-m> :TagbarToggle<CR>
+    map <C-v> :w<CR>:TagbarClose<CR>:TagbarOpen<CR>
+
 call vundle#end()                                                         " All of your Plugins must be added before the following line
 
 filetype on
