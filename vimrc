@@ -10,8 +10,8 @@ source $PLUGINDIR/plug.vim
 
 call plug#begin(expand($PLUGINDIR))
     
-Plug 'jnurmine/Zenburn'
-Plug 'altercation/vim-colors-solarized'
+" Plug 'jnurmine/Zenburn'
+" Plug 'altercation/vim-colors-solarized'
 
 Plug 'ervandew/supertab'
 Plug 'jiangmiao/auto-pairs'
@@ -52,9 +52,15 @@ Plug 'w0rp/ale'
                 \}
 
 Plug 'davidhalter/jedi-vim' 
-    let g:jedi#popup_on_dot=1
-    let g:jedi#auto_initialization = 1                                   " Automatically initialize jedi-vim
-    let g:jedi#auto_vim_configuration = 1                                " Automatically initialized 
+    " " let g:jedi#popup_on_dot=1
+     " let g:jedi#auto_initialization = 1                                   " Automatically initialize jedi-vim
+     " let g:jedi#auto_vim_configuration = 1                                " Automatically initialized 
+
+Plug 'tell-k/vim-autopep8'
+    autocmd FileType python noremap <buffer> <F8> :call Autopep8()<CR>
+    let g:autopep8_max_line_length=79  " set maximum allowed line length
+    let g:autopep8_disable_show_diff=1  " Disable show diff window
+    let g:autopep8_on_save=1  " Automatically format every time saving a file
 
 Plug 'scrooloose/nerdcommenter'
     let g:NERDSpaceDelims = 1                                            " Add spaces after comment delimiters by default
@@ -64,19 +70,19 @@ Plug 'scrooloose/nerdtree'
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 Plug 'godlygeek/tabular'
-   "  if exists(":Tabularize")
-		" nmap <Leader>a= :Tabularize /=<CR>
-		" vmap <Leader>a= :Tabularize /=<CR>
-		" nmap <Leader>a: :Tabularize /:<CR>
-		" vmap <Leader>a: :Tabularize /:<CR>
-		" nmap <Leader>a, :Tabularize /,<CR>
-		" vmap <Leader>a, :Tabularize /,<CR>
-	" endif
+    "  if exists(":Tabularize")
+		" " nmap <Leader>a= :Tabularize /=<CR>
+		" " vmap <Leader>a= :Tabularize /=<CR>
+		" " nmap <Leader>a: :Tabularize /:<CR>
+		" " vmap <Leader>a: :Tabularize /:<CR>
+		" " nmap <Leader>a, :Tabularize /,<CR>
+		" " vmap <Leader>a, :Tabularize /,<CR>
+	" " endif
 	
-" Plug 'plasticboy/vim-markdown'
-" Plug 'suan/vim-instant-markdown'
+" " Plug 'plasticboy/vim-markdown'
+" " Plug 'suan/vim-instant-markdown'
 
-" Plug 'vim-scripts/c.vim', { 'for': ['c', 'cpp', 'h'] }
+" " Plug 'vim-scripts/c.vim', { 'for': ['c', 'cpp', 'h'] }
 
 Plug 'vim-airline/vim-airline'
 	set laststatus=2                                                     " 永远显示状态栏
@@ -95,14 +101,14 @@ Plug 'vim-airline/vim-airline'
 
 Plug 'vim-airline/vim-airline-themes'
 
-" Plug 'vim-latex/vim-latex'
-" set grepprg=grep\ -nH\ $*
-" let g:tex_flavor='latex'
-" set iskeyword+=:
-" " autocmd BufEnter *.tex
-" set sw=2
+" " Plug 'vim-latex/vim-latex'
+" " set grepprg=grep\ -nH\ $*
+" " let g:tex_flavor='latex'
+" " set iskeyword+=:
+ " " autocmd BufEnter *.tex
+" " set sw=2
 
-" Plug 'valloric/youcompleteme'
+" " Plug 'valloric/youcompleteme'
 
 call plug#end()
 
