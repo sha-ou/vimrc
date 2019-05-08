@@ -1,9 +1,3 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" For Vundle
-" :BundleInstall  install
-" :BundleInstall! update
-" :BundleClean    remove plugin no in list
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let $VIMCONFDIR = expand("$HOME/.vim")
 let $PLUGINDIR  = expand("$VIMCONFDIR/bundle")
 
@@ -19,11 +13,6 @@ call plug#begin(expand($PLUGINDIR))
 Plug 'jnurmine/Zenburn'
 Plug 'altercation/vim-colors-solarized'
 
-Plug 'davidhalter/jedi-vim', { 'for': 'py' }
-    " " let g:jedi#popup_on_dot=0
-    " let g:jedi#auto_initialization = 1                                   " Automatically initialize jedi-vim
-    " let g:jedi#auto_vim_configuration = 1                                " Automatically initialized 
-
 Plug 'ervandew/supertab'
 Plug 'jiangmiao/auto-pairs'
 
@@ -35,36 +24,37 @@ Plug 'majutsushi/tagbar'
     let g:tagbar_autofocus=0
     let g:tagbar_sort=0
     let g:tagbar_show_linenumbers=1
-    " autocmd VimEnter * nested :call tagbar#autoopen(1)
-    " autocmd FileType * nested :call tagbar#autoopen(0)
-    " autocmd BufEnter * nested :call tagbar#autoopen(0)
-    " autocmd FileType c,cpp,h,hpp,py nested :TagbarOpen
     map <C-m> :TagbarToggle<CR>
     map <C-v> :w<CR>:TagbarClose<CR>:TagbarOpen<CR>
 
 Plug 'w0rp/ale'
     let g:ale_keep_list_window_open=1
     let g:ale_lint_on_enter=1
-	let g:ale_linters_explicit = 1
-	let g:ale_completion_delay = 500
-	let g:ale_echo_delay = 20
-	let g:ale_lint_delay = 500
-	let g:ale_echo_msg_format = '[%linter%] %code: %%s'
-	let g:ale_lint_on_text_changed = 'normal'
-	let g:ale_lint_on_insert_leave = 1
-	let g:airline#extensions#ale#enabled = 1
+    let g:ale_linters_explicit = 1
+    let g:ale_completion_delay = 500
+    let g:ale_echo_delay = 20
+    let g:ale_lint_delay = 500
+    let g:ale_echo_msg_format = '[%linter%] %code: %%s'
+    let g:ale_lint_on_text_changed = 'normal'
+    let g:ale_lint_on_insert_leave = 1
+    let g:airline#extensions#ale#enabled = 1
     let g:ale_sign_error='✗'
     let g:ale_sign_warning='⚡'
 
-	let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
-	let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
-	let g:ale_c_cppcheck_options = ''
-	let g:ale_cpp_cppcheck_options = ''
+    let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
+    let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
+    let g:ale_c_cppcheck_options = ''
+    let g:ale_cpp_cppcheck_options = ''
     let g:ale_linters = {
                 \ 'c++': ['clang', 'cppcheck'],
                 \ 'c': ['gcc', 'cppcheck', 'clang'],
                 \ 'python': ['flake8'],
                 \}
+
+Plug 'davidhalter/jedi-vim' 
+    let g:jedi#popup_on_dot=1
+    let g:jedi#auto_initialization = 1                                   " Automatically initialize jedi-vim
+    let g:jedi#auto_vim_configuration = 1                                " Automatically initialized 
 
 Plug 'scrooloose/nerdcommenter'
     let g:NERDSpaceDelims = 1                                            " Add spaces after comment delimiters by default
@@ -92,18 +82,7 @@ Plug 'vim-airline/vim-airline'
 	set laststatus=2                                                     " 永远显示状态栏
 	set t_Co=256                                                         " 终端256色
 	let g:airline#extensions#tabline#enabled = 1                         " 显示窗口tab和buffer
-    " let g:airline_powerline_fonts = 1                                    " 支持 powerline 字体
-"     let g:airline_section_y = 'BN: %{bufnr("%")}'
-
-    " if !exists('g:airline_symbols')
-     " let g:airline_symbols = {}
-    " endif
-    " let g:airline_symbols.space="\ua0"
-    " let g:airline_exclude_filename=[]
-    " let g:Powerline_symbols='fancy'
-    " let g:airline_powerline_fonts=0
-    " let Powerline_symbols='fancy'
- 
+    
     function! AirlineInit()
         let g:airline_section_a = airline#section#create(['mode', ' ', 'branch'])
         let g:airline_section_b = airline#section#create_left(['ffenc', 'hunks', '%f'])
@@ -124,7 +103,6 @@ Plug 'vim-airline/vim-airline-themes'
 " set sw=2
 
 " Plug 'valloric/youcompleteme'
-" Plug 'nvie/vim-flake8'
 
 call plug#end()
 
