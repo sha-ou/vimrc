@@ -1,3 +1,4 @@
+let mapleader = ","                                                       " 设置mapleader
 let $VIMCONFDIR = expand("$HOME/.vim")
 let $PLUGINDIR  = expand("$VIMCONFDIR/bundle")
 
@@ -31,6 +32,7 @@ Plug 'w0rp/ale'
     let g:ale_keep_list_window_open=1
     let g:ale_lint_on_enter=1
     let g:ale_linters_explicit = 1
+    let g:ale_completion=1
     let g:ale_completion_delay = 500
     let g:ale_echo_delay = 20
     let g:ale_lint_delay = 500
@@ -49,15 +51,18 @@ Plug 'w0rp/ale'
                 \ 'c++': ['clang', 'cppcheck'],
                 \ 'c': ['gcc', 'cppcheck', 'clang'],
                 \ 'python': ['flake8'],
+                \ 'sh': ['shell', 'shellcheck'],
+                \ 'vim': ['vint'],
                 \}
 
 Plug 'davidhalter/jedi-vim' 
-    " " let g:jedi#popup_on_dot=1
-     " let g:jedi#auto_initialization = 1                                   " Automatically initialize jedi-vim
-     " let g:jedi#auto_vim_configuration = 1                                " Automatically initialized 
+     let g:jedi#popup_on_dot=0
+     let g:jedi#popup_select_first=1
+     let g:jedi#completions_enabled=1
+     let g:jedi#auto_close_doc=0
+     let g:jedi#smart_auto_mappings=1
 
 Plug 'tell-k/vim-autopep8'
-    autocmd FileType python noremap <buffer> <F8> :call Autopep8()<CR>
     let g:autopep8_max_line_length=79  " set maximum allowed line length
     let g:autopep8_disable_show_diff=1  " Disable show diff window
     let g:autopep8_on_save=1  " Automatically format every time saving a file
@@ -67,23 +72,10 @@ Plug 'scrooloose/nerdcommenter'
 
 Plug 'scrooloose/nerdtree'
     nmap <C-n> :NERDTreeToggle<CR>                                           
-    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif  " Auto close when NERDTree is the last window
 
 Plug 'godlygeek/tabular'
-    "  if exists(":Tabularize")
-		" " nmap <Leader>a= :Tabularize /=<CR>
-		" " vmap <Leader>a= :Tabularize /=<CR>
-		" " nmap <Leader>a: :Tabularize /:<CR>
-		" " vmap <Leader>a: :Tabularize /:<CR>
-		" " nmap <Leader>a, :Tabularize /,<CR>
-		" " vmap <Leader>a, :Tabularize /,<CR>
-	" " endif
 	
-" " Plug 'plasticboy/vim-markdown'
-" " Plug 'suan/vim-instant-markdown'
-
-" " Plug 'vim-scripts/c.vim', { 'for': ['c', 'cpp', 'h'] }
-
 Plug 'vim-airline/vim-airline'
 	set laststatus=2                                                     " 永远显示状态栏
 	set t_Co=256                                                         " 终端256色
@@ -101,21 +93,11 @@ Plug 'vim-airline/vim-airline'
 
 Plug 'vim-airline/vim-airline-themes'
 
-" " Plug 'vim-latex/vim-latex'
-" " set grepprg=grep\ -nH\ $*
-" " let g:tex_flavor='latex'
-" " set iskeyword+=:
- " " autocmd BufEnter *.tex
-" " set sw=2
-
-" " Plug 'valloric/youcompleteme'
-
 call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let mapleader = ","                                                       " 设置mapleader
 filetype on                                                               " 打开文件类型检测功能
 filetype plugin on
 filetype plugin indent on                                                 " required
@@ -150,15 +132,15 @@ imap 【 【】<ESC>i
 """""""""""""""""""""""""""""
 map <F5> : call CompileRunGcc()<CR>
 func! CompileRunGcc()
-exec "w"
-if &filetype == 'c'
-    exec "!g++ % -o %<"
-    exec "!time ./%<"
-elseif &filetype == 'sh'
-    :!time bash %
-elseif &filetype == 'python'
-    exec "!time python3 %"
-endif
+    exec "w"
+    if &filetype == 'c'
+        exec "!g++ % -o %<"
+        exec "!time ./%<"
+    elseif &filetype == 'sh'
+        :!time bash %
+    elseif &filetype == 'python'
+        exec "!time python3 %"
+    endif
 endfunc
 
 
