@@ -4,89 +4,30 @@
 " :BundleInstall! update
 " :BundleClean    remove plugin no in list
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nocompatible                                                          " required
-filetype off                                                              " required
-set rtp+=~/.vim/bundle/Vundle.vim                                         " set the runtime path to include Vundle and initialize
-call vundle#begin('~/.vim/bundle')
-    " alternatively, pass a path where Vundle should install plugins
-    " call vundle#begin('~/some/path/here')
-    " let Vundle manage Vundle, required
+let $VIMCONFDIR = expand("$HOME/.vim")
+let $PLUGINDIR  = expand("$VIMCONFDIR/bundle")
+
+if empty(glob(expand("$PLUGINDIR/plug.vim")))
+    silent !curl -fLo $PLUGINDIR/plug.vim --create-dirs 
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source ~/.vimrc
+endif
+source $PLUGINDIR/plug.vim
+
+call plug#begin(expand($PLUGINDIR))
     
-Plugin 'gmarik/Vundle.vim'
+Plug 'jnurmine/Zenburn'
+Plug 'altercation/vim-colors-solarized'
 
-" Plugin 'scrooloose/syntastic'
-     " set statusline+=%#warningmsg#
-     " set statusline+=%{SyntasticStatuslineFlag()}
-     " set statusline+=%*
-     " let g:syntastic_always_populate_loc_list = 1
-     " let g:syntastic_auto_loc_list = 1
-     " let g:syntastic_check_on_open = 1
-     " let g:syntastic_check_on_wq = 0
+Plug 'davidhalter/jedi-vim', { 'for': 'py' }
+    " " let g:jedi#popup_on_dot=0
+    " let g:jedi#auto_initialization = 1                                   " Automatically initialize jedi-vim
+    " let g:jedi#auto_vim_configuration = 1                                " Automatically initialized 
 
-Plugin 'jnurmine/Zenburn'
-Plugin 'altercation/vim-colors-solarized'
+Plug 'ervandew/supertab'
+Plug 'jiangmiao/auto-pairs'
 
-Plugin 'davidhalter/jedi-vim'
-    " let g:jedi#popup_on_dot=0
-    let g:jedi#auto_initialization = 1                                   " Automatically initialize jedi-vim
-    let g:jedi#auto_vim_configuration = 1                                " Automatically initialized 
-
-Plugin 'ervandew/supertab'
-Plugin 'jiangmiao/auto-pairs'
-
-Plugin 'scrooloose/nerdcommenter'
-    let g:NERDSpaceDelims = 1                                            " Add spaces after comment delimiters by default
-
-Plugin 'scrooloose/nerdtree'
-    nmap <C-n> :NERDTreeToggle<CR>                                           
-    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-Plugin 'godlygeek/tabular'
-   "  if exists(":Tabularize")
-		" nmap <Leader>a= :Tabularize /=<CR>
-		" vmap <Leader>a= :Tabularize /=<CR>
-		" nmap <Leader>a: :Tabularize /:<CR>
-		" vmap <Leader>a: :Tabularize /:<CR>
-		" nmap <Leader>a, :Tabularize /,<CR>
-		" vmap <Leader>a, :Tabularize /,<CR>
-	" endif
-	
-" Plugin 'plasticboy/vim-markdown'
-" Plugin 'suan/vim-instant-markdown'
-"
-Plugin 'vim-scripts/c.vim'
-
-Plugin 'vim-airline/vim-airline'
-	set laststatus=2                                                     " 永远显示状态栏
-	set t_Co=256                                                         " 终端256色
-	let g:airline#extensions#tabline#enabled = 1                         " 显示窗口tab和buffer
-    " let g:airline_powerline_fonts = 1                                    " 支持 powerline 字体
-"     let g:airline_section_y = 'BN: %{bufnr("%")}'
-
-    " if !exists('g:airline_symbols')
-     " let g:airline_symbols = {}
-    " endif
-    " let g:airline_symbols.space="\ua0"
-    " let g:airline_exclude_filename=[]
-    " let g:Powerline_symbols='fancy'
-    " let g:airline_powerline_fonts=0
-    " let Powerline_symbols='fancy'
-    " let g:bufferline_echo=0
-
-Plugin 'vim-airline/vim-airline-themes'
-
-" Plugin 'vim-latex/vim-latex'
-" set grepprg=grep\ -nH\ $*
-" let g:tex_flavor='latex'
-" set iskeyword+=:
-" " autocmd BufEnter *.tex
-" set sw=2
-
-" Plugin 'valloric/youcompleteme'
-" Plugin 'nvie/vim-flake8'
-"
-
-Plugin 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
     let g:tagbar_ctags_bin='/usr/bin/ctags'
     let g:tagbar_right=1
     let g:tagbar_autopreview=0
@@ -101,30 +42,105 @@ Plugin 'majutsushi/tagbar'
     map <C-m> :TagbarToggle<CR>
     map <C-v> :w<CR>:TagbarClose<CR>:TagbarOpen<CR>
 
-call vundle#end()                                                         " All of your Plugins must be added before the following line
+Plug 'w0rp/ale'
+    let g:ale_keep_list_window_open=1
+    let g:ale_lint_on_enter=1
+	let g:ale_linters_explicit = 1
+	let g:ale_completion_delay = 500
+	let g:ale_echo_delay = 20
+	let g:ale_lint_delay = 500
+	let g:ale_echo_msg_format = '[%linter%] %code: %%s'
+	let g:ale_lint_on_text_changed = 'normal'
+	let g:ale_lint_on_insert_leave = 1
+	let g:airline#extensions#ale#enabled = 1
+    let g:ale_sign_error='✗'
+    let g:ale_sign_warning='⚡'
 
-filetype on
-filetype plugin on
-filetype plugin indent on                                                 " required
+	let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
+	let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
+	let g:ale_c_cppcheck_options = ''
+	let g:ale_cpp_cppcheck_options = ''
+    let g:ale_linters = {
+                \ 'c++': ['clang', 'cppcheck'],
+                \ 'c': ['gcc', 'cppcheck', 'clang'],
+                \ 'python': ['flake8'],
+                \}
 
-"if has('gui_running')
-"    set background=dark
-"    colorscheme solarized
-"else
-"    colorscheme Zenburn
-"endif
+Plug 'scrooloose/nerdcommenter'
+    let g:NERDSpaceDelims = 1                                            " Add spaces after comment delimiters by default
+
+Plug 'scrooloose/nerdtree'
+    nmap <C-n> :NERDTreeToggle<CR>                                           
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+Plug 'godlygeek/tabular'
+   "  if exists(":Tabularize")
+		" nmap <Leader>a= :Tabularize /=<CR>
+		" vmap <Leader>a= :Tabularize /=<CR>
+		" nmap <Leader>a: :Tabularize /:<CR>
+		" vmap <Leader>a: :Tabularize /:<CR>
+		" nmap <Leader>a, :Tabularize /,<CR>
+		" vmap <Leader>a, :Tabularize /,<CR>
+	" endif
+	
+" Plug 'plasticboy/vim-markdown'
+" Plug 'suan/vim-instant-markdown'
+
+" Plug 'vim-scripts/c.vim', { 'for': ['c', 'cpp', 'h'] }
+
+Plug 'vim-airline/vim-airline'
+	set laststatus=2                                                     " 永远显示状态栏
+	set t_Co=256                                                         " 终端256色
+	let g:airline#extensions#tabline#enabled = 1                         " 显示窗口tab和buffer
+    " let g:airline_powerline_fonts = 1                                    " 支持 powerline 字体
+"     let g:airline_section_y = 'BN: %{bufnr("%")}'
+
+    " if !exists('g:airline_symbols')
+     " let g:airline_symbols = {}
+    " endif
+    " let g:airline_symbols.space="\ua0"
+    " let g:airline_exclude_filename=[]
+    " let g:Powerline_symbols='fancy'
+    " let g:airline_powerline_fonts=0
+    " let Powerline_symbols='fancy'
+ 
+    function! AirlineInit()
+        let g:airline_section_a = airline#section#create(['mode', ' ', 'branch'])
+        let g:airline_section_b = airline#section#create_left(['ffenc', 'hunks', '%f'])
+        let g:airline_section_c = airline#section#create(['filetype'])
+        let g:airline_section_x = airline#section#create(['%P'])
+        let g:airline_section_y = airline#section#create(['%B'])
+        let g:airline_section_z = airline#section#create_right(['%l', '%c'])
+    endfunction
+    autocmd VimEnter * call AirlineInit()
+
+Plug 'vim-airline/vim-airline-themes'
+
+" Plug 'vim-latex/vim-latex'
+" set grepprg=grep\ -nH\ $*
+" let g:tex_flavor='latex'
+" set iskeyword+=:
+" " autocmd BufEnter *.tex
+" set sw=2
+
+" Plug 'valloric/youcompleteme'
+" Plug 'nvie/vim-flake8'
+
+call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader = ","                                                       " 设置mapleader
 filetype on                                                               " 打开文件类型检测功能
+filetype plugin on
+filetype plugin indent on                                                 " required
 syntax on                                                                 " 语法高亮
 set number                                                                " 显示行号
 set autoread                                                              " 文件被外部改变时自动读取
 set selection=exclusive                                                   " 允许区域选择
 set selectmode=mouse,key                                                   
-set statusline=%F,%Y,%l/%L,%v,%{&ff}
+" set statusline=%F,%Y,%l/%L,%v,%{&ff}
 set laststatus=2                                                          " 总是显示状态行
 set ruler                                                                 " 显示光标所在行列号
 set autoindent                                                            " 继承前一行的缩进方式
@@ -179,16 +195,6 @@ nmap <C-J> <C-W><C-J>
 nmap <C-K> <C-W><C-K>
 nmap <C-H> <C-W><C-H>
 nmap <C-L> <C-W><C-L>
-
-function! AirlineInit()
-    let g:airline_section_a = airline#section#create(['mode', ' ', 'branch'])
-    let g:airline_section_b = airline#section#create_left(['ffenc', 'hunks', '%f'])
-    let g:airline_section_c = airline#section#create(['filetype'])
-    let g:airline_section_x = airline#section#create(['%P'])
-    let g:airline_section_y = airline#section#create(['%B'])
-    let g:airline_section_z = airline#section#create_right(['%l', '%c'])
-endfunction
-autocmd VimEnter * call AirlineInit()
 
 " ----------Autowitre---------- "
 autocmd BufNewFile *.py,*.sh exec ":call WriteInfo()"
