@@ -5,7 +5,7 @@ let $PLUGINDIR  = expand("$VIMCONFDIR/bundle")
 if empty(glob(expand("$PLUGINDIR/plug.vim")))
     silent !curl -fLo $PLUGINDIR/plug.vim --create-dirs 
                 \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    autocmd VimEnter * PlugInstall --sync | source ~/.vimrc
+    autocmd VimEnter * PlugInstall --sync | source $VIMCONFDIR/vimrc
 endif
 source $PLUGINDIR/plug.vim
 
