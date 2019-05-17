@@ -1,3 +1,10 @@
+" install gcc for ale c synatix
+" install clang for ale c synatix
+" install cppcheck for ale c synatix
+" install shellcheck for ale shell synatix
+" install ctags for tagbar 
+" pip install flake for ale python synatix
+" pip install autopep8 for vim-autopep8
 let mapleader = ","                                                       " 设置mapleader
 let $VIMCONFDIR = expand("$HOME/.vim")
 let $PLUGINDIR  = expand("$VIMCONFDIR/bundle")
@@ -11,9 +18,6 @@ source $PLUGINDIR/plug.vim
 
 call plug#begin(expand($PLUGINDIR))
     
-" Plug 'jnurmine/Zenburn'
-" Plug 'altercation/vim-colors-solarized'
-
 Plug 'ervandew/supertab'
 Plug 'jiangmiao/auto-pairs'
 
