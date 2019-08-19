@@ -2,7 +2,7 @@
 " install clang for ale c synatix
 " install cppcheck for ale c synatix
 " install shellcheck for ale shell synatix
-" install ctags for tagbar 
+" install ctags for tagbar
 " pip install flake for ale python synatix
 " pip install autopep8 for vim-autopep8
 let mapleader = ","                                                       " 设置mapleader
@@ -17,7 +17,7 @@ endif
 source $PLUGINDIR/plug.vim
 
 call plug#begin(expand($PLUGINDIR))
-    
+
 Plug 'ervandew/supertab'
 Plug 'jiangmiao/auto-pairs'
 
@@ -59,7 +59,7 @@ Plug 'w0rp/ale'
                 \ 'vim': ['vint'],
                 \}
 
-Plug 'davidhalter/jedi-vim' 
+Plug 'davidhalter/jedi-vim'
      let g:jedi#popup_on_dot=0
      let g:jedi#popup_select_first=1
      let g:jedi#completions_enabled=1
@@ -75,16 +75,15 @@ Plug 'scrooloose/nerdcommenter'
     let g:NERDSpaceDelims = 1                                            " Add spaces after comment delimiters by default
 
 Plug 'scrooloose/nerdtree'
-    nmap <C-n> :NERDTreeToggle<CR>                                           
+    nmap <C-n> :NERDTreeToggle<CR>
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif  " Auto close when NERDTree is the last window
 
 Plug 'godlygeek/tabular'
-	
 Plug 'vim-airline/vim-airline'
-	set laststatus=2                                                     " 永远显示状态栏
-	set t_Co=256                                                         " 终端256色
-	let g:airline#extensions#tabline#enabled = 1                         " 显示窗口tab和buffer
-    
+    set laststatus=2                                                     " 永远显示状态栏
+    set t_Co=256                                                         " 终端256色
+    let g:airline#extensions#tabline#enabled = 1                         " 显示窗口tab和buffer
+
     function! AirlineInit()
         let g:airline_section_a = airline#section#create(['mode', ' ', 'branch'])
         let g:airline_section_b = airline#section#create_left(['ffenc', 'hunks', '%f'])
@@ -108,7 +107,7 @@ filetype plugin on
 filetype plugin indent on                                                 " required
 syntax on                                                                 " 语法高亮
 set selection=exclusive                                                   " 允许区域选择
-set selectmode=mouse,key                                                   
+set selectmode=mouse,key
 set showcmd  "命令模式下显示命令
 set showmode "底部显示当前模式
 set autoread                                                              " 文件被外部改变时自动读取
