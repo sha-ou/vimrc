@@ -102,28 +102,49 @@ call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 基本
 filetype on                                                               " 打开文件类型检测功能
 filetype plugin on
 filetype plugin indent on                                                 " required
 syntax on                                                                 " 语法高亮
-set number                                                                " 显示行号
-set autoread                                                              " 文件被外部改变时自动读取
 set selection=exclusive                                                   " 允许区域选择
 set selectmode=mouse,key                                                   
+set showcmd  "命令模式下显示命令
+set showmode "底部显示当前模式
+set autoread                                                              " 文件被外部改变时自动读取
+set clipboard+=unname  "使用外部粘贴板
+
+set listchars=tab:»■,trail:■
+set list "行尾空白符显示为方块
+
+"外观
+set number                                                                " 显示行号
 " set statusline=%F,%Y,%l/%L,%v,%{&ff}
 set laststatus=2                                                          " 总是显示状态行
 set ruler                                                                 " 显示光标所在行列号
+set cursorline                                                            " 高亮光标所在行
+set textwidth=81  "一行80字符宽
+
+"缩进与tab
 set autoindent                                                            " 继承前一行的缩进方式
-set tabstop=4                                                             " 制表符为4
-set expandtab
-set softtabstop=4                                                         " 统一缩进为4
-set shiftwidth=4
+set tabstop=4                                                             " 一个制表符显示为4个空格大小
+
+set shiftwidth=4  "一次>>缩进的字符数
+
+set expandtab  "将制表符解释为空格
+
+set softtabstop=4                                                         " 将制表符解释为4个空格
+
 set backspace=2                                                           " 允许使用退格键
 set backspace=eol,start,indent
+
+" 搜索
+set showmatch "自动高亮对应括号
+
 set ignorecase                                                            " 搜索忽略大小写
 set hlsearch                                                              " 搜索逐字符高亮
-set incsearch
-set cursorline                                                            " 高亮光标所在行
+set incsearch  "搜索输入匹配模式时，每输入一个字符就跳到第一个匹配的结果
+
 " imap { {}<ESC>i                                                         " 括号自动补全
 " imap ( ()<ESC>i
 " imap [ []<ESC>i
@@ -155,7 +176,14 @@ endfunc
 
 " ---------Mappings---------- "
 nmap <Leader>ev :e ~/.vim/vimrc<cr>
+nmap <Leader>sv :source ~/.vim/vimrc<cr>
 nmap <Leader><space> :nohlsearch<cr>
+map <C-a> <home>
+map <C-e> <end>
+imap <M-j> <Down>
+imap <M-k> <Up>
+imap <M-h> <Left>
+imap <M-l> <Right>
 
 
 " ---------Split-Management---------- "
