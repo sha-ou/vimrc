@@ -115,6 +115,9 @@ set clipboard+=unname  "使用外部粘贴板
 
 set listchars=tab:»■,trail:■
 set list "行尾空白符显示为方块
+set autochdir "auto change dir
+set nowrap "去掉折行
+
 
 "外观
 set number                                                                " 显示行号
@@ -124,7 +127,14 @@ set ruler                                                                 " 显�
 set cursorline                                                            " 高亮光标所在行
 set colorcolumn=81  "80字符一行
 
-"缩进与tab
+" Tab
+set showtabline=2
+nmap tn :tabnew<cr>
+nmap to :tabonly<cr>
+nmap tc :tabclose<cr>
+nmap ts :tabs<cr>
+
+" 缩进与tab键
 set autoindent                                                            " 继承前一行的缩进方式
 set tabstop=4                                                             " 一个制表符显示为4个空格大小
 
