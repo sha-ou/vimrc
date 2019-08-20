@@ -122,7 +122,7 @@ set number                                                                " 显�
 set laststatus=2                                                          " 总是显示状态行
 set ruler                                                                 " 显示光标所在行列号
 set cursorline                                                            " 高亮光标所在行
-set textwidth=81  "一行80字符宽
+set colorcolumn=81  "80字符一行
 
 "缩进与tab
 set autoindent                                                            " 继承前一行的缩进方式
