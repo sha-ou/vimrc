@@ -30,7 +30,7 @@ Plug 'majutsushi/tagbar'
     let g:tagbar_sort=0
     let g:tagbar_show_linenumbers=1
     map <C-m> :TagbarToggle<CR>
-    map <C-v> :w<CR>:TagbarClose<CR>:TagbarOpen<CR>
+    map <C-z> :w<CR>:TagbarClose<CR>:TagbarOpen<CR>
 
 Plug 'w0rp/ale'
     let g:ale_keep_list_window_open=1
@@ -108,15 +108,19 @@ filetype plugin indent on                                                 " requ
 syntax on                                                                 " 语法高亮
 set selection=exclusive                                                   " 允许区域选择
 set selectmode=mouse,key
-set showcmd  "命令模式下显示命令
-set showmode "底部显示当前模式
+set showcmd                                                               "命令模式下显示命令
+set showmode                                                              "底部显示当前模式
 set autoread                                                              " 文件被外部改变时自动读取
-set clipboard+=unname  "使用外部粘贴板
+set clipboard+=unname                                                     "使用外部粘贴板
 
-set listchars=tab:»■,trail:■
-set list "行尾空白符显示为方块
-set autochdir "auto change dir
-set nowrap "去掉折行
+set list                                                                  "行尾空白符显示为方块
+if (has("multy_byte") && encoding=="utf-8")
+    set listchars=tab:»■,trail:■,extends:>,precedes:<,nbsp:-
+else
+    set listchars=tab:>-,trail:-,extends:>,precedes:<,nbsp:-
+endif
+set autochdir                                                             "auto change dir
+set nowrap                                                                "去掉折行
 
 
 "外观
@@ -125,9 +129,10 @@ set number                                                                " 显�
 set laststatus=2                                                          " 总是显示状态行
 set ruler                                                                 " 显示光标所在行列号
 set cursorline                                                            " 高亮光标所在行
-set colorcolumn=81  "80字符一行
+set cursorcolumn                                                          " 高亮光标所在列
+set colorcolumn=81                                                        " 80字符一行
 
-" Tab
+" 标签
 set showtabline=2
 nmap tn :tabnew<cr>
 nmap to :tabonly<cr>
@@ -137,23 +142,20 @@ nmap ts :tabs<cr>
 " 缩进与tab键
 set autoindent                                                            " 继承前一行的缩进方式
 set tabstop=4                                                             " 一个制表符显示为4个空格大小
-
-set shiftwidth=4  "一次>>缩进的字符数
-
-set expandtab  "将制表符解释为空格
-
+set shiftwidth=4                                                          "一次>>缩进的字符数
+set expandtab                                                             "将制表符解释为空格
 set softtabstop=4                                                         " 将制表符解释为4个空格
-
 set backspace=2                                                           " 允许使用退格键
 set backspace=eol,start,indent
 
 " 搜索
-set showmatch "自动高亮对应括号
-
+set showmatch                                                             "自动高亮对应括号
 set ignorecase                                                            " 搜索忽略大小写
 set hlsearch                                                              " 搜索逐字符高亮
-set incsearch  "搜索输入匹配模式时，每输入一个字符就跳到第一个匹配的结果
+set incsearch                                                             "搜索输入匹配模式时，每输入一个字符就跳到第一个匹配的结果
+nmap <Leader><space> :nohlsearch<cr>
 
+" 括号自动补全
 " imap { {}<ESC>i                                                         " 括号自动补全
 " imap ( ()<ESC>i
 " imap [ []<ESC>i
@@ -186,7 +188,6 @@ endfunc
 " ---------Mappings---------- "
 nmap <Leader>ev :e ~/.vim/vimrc<cr>
 nmap <Leader>sv :source ~/.vim/vimrc<cr>
-nmap <Leader><space> :nohlsearch<cr>
 map <C-a> <home>
 map <C-e> <end>
 imap <M-j> <Down>
