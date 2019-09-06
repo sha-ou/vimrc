@@ -3,7 +3,7 @@
 " install cppcheck for ale c synatix
 " install shellcheck for ale shell synatix
 " install ctags for tagbar
-" pip install flake for ale python synatix
+" pip install flake8 for ale python synatix
 " pip install autopep8 for vim-autopep8
 let mapleader = ","                                                       " 设置mapleader
 let $VIMCONFDIR = expand("$HOME/.vim")
