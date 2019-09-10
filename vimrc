@@ -5,6 +5,7 @@
 " install ctags for tagbar
 " pip install flake8 for ale python synatix
 " pip install autopep8 for vim-autopep8
+" pip install vim-vint for vim script syntax checking
 let mapleader = ","                                                       " 设置mapleader
 let $VIMCONFDIR = expand("$HOME/.vim")
 let $PLUGINDIR  = expand("$VIMCONFDIR/bundle")
