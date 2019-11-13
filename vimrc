@@ -3,10 +3,10 @@
 " install cppcheck for ale c synatix
 " install shellcheck for ale shell synatix
 " install ctags for tagbar
-" pip install flake8 for ale python synatix
-" pip install autopep8 for vim-autopep8
+" pip install flake8 for ale python synatix (work @ version 3.7.7)
+" pip install autopep8 for vim-autopep8 (work @ version 1.4.4)
 " pip install vim-vint for vim script syntax checking
-let mapleader = ","                                                       " 设置mapleader
+let mapleader = ','                                                       " 设置mapleader
 let $VIMCONFDIR = expand("$HOME/.vim")
 let $PLUGINDIR  = expand("$VIMCONFDIR/bundle")
 
@@ -64,7 +64,7 @@ Plug 'davidhalter/jedi-vim'
      let g:jedi#popup_on_dot=0
      let g:jedi#popup_select_first=1
      let g:jedi#completions_enabled=1
-     let g:jedi#auto_close_doc=0
+     let g:jedi#auto_close_doc=1
      let g:jedi#smart_auto_mappings=1
 
 Plug 'tell-k/vim-autopep8'
@@ -120,7 +120,7 @@ if (has("multy_byte") && encoding=="utf-8")
 else
     set listchars=tab:>-,trail:-,extends:>,precedes:<,nbsp:-
 endif
-set autochdir                                                             "auto change dir
+" set autochdir                                                             "auto change dir
 set nowrap                                                                "去掉折行
 
 
@@ -164,6 +164,33 @@ nmap <Leader><space> :nohlsearch<cr>
 " :inoremap " ""<ESC>i
 imap （ （）<ESC>i
 imap 【 【】<ESC>i
+
+""""""""""""""""""""""""""""
+" scope setting
+""""""""""""""""""""""""""""
+if has('cscope')
+    set cscopeprg=/usr/bin/cscope
+    set cscopetagorder=1
+    set cscopetag
+    set nocscopeverbose
+
+    " Add any database in current dirctory
+    if filereadable('cscope.out')
+        cs add cscope.out
+    endif
+
+    set nocscopeverbose
+
+    nmap <C-\>s :cscope find s <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-\>g :cscope find g <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-\>c :cscope find c <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-\>t :cscope find t <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-\>e :cscope find e <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-\>f :cscope find f <C-R>=expand("<cfile>")<CR><CR>
+    nmap <C-\>i :cscope find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+    nmap <C-\>d :cscope find d <C-R>=expand("<cword>")<CR><CR>
+endif
+
 """""""""""""""""""""""""""""
 " Quickly Run"
 """""""""""""""""""""""""""""
@@ -206,43 +233,43 @@ nmap <C-H> <C-W><C-H>
 nmap <C-L> <C-W><C-L>
 
 " ----------Autowitre---------- "
-autocmd BufNewFile *.py,*.sh exec ":call WriteInfo()"
-func! WriteInfo()
-    if &filetype == 'python'
-        call setline(1,"#!/usr/bin/python3")
-        call append(line("."),"")
-        call append(line(".")+1,"###################################################################")
-        call append(line(".")+2,"#    File name     : ".expand("%:t"))
-        call append(line(".")+3,"#    Author        : sha-ou")
-        call append(line(".")+4,"#    Date          : ".strftime("%c"))
-        call append(line(".")+5,"#    Description   : ")
-        call append(line(".")+6,"###################################################################")
-        call append(line(".")+7,"")
-        call append(line(".")+8,"")
-    elseif &filetype == 'sh'
-        call setline(1,"#!/bin/bash")
-        call append(line("."),"")
-        call append(line(".")+1,"###################################################################")
-        call append(line(".")+2,"#    File name     : ".expand("%:t"))
-        call append(line(".")+3,"#    Author        : sha-ou")
-        call append(line(".")+4,"#    Date          : ".strftime("%c"))
-        call append(line(".")+5,"#    Description   : ")
-        call append(line(".")+6,"###################################################################")
-        call append(line(".")+7,"")
-        call append(line(".")+8,"")
-    elseif &filetype == 'c'
-        call setline(1,"/*  */")
-        call append(line("."),"")
-        call append(line(".")+1,"/*************************************************/")
-        call append(line(".")+2,"*    File name     : ".expand("%:t"))
-        call append(line(".")+3,"*    Author        : sha-ou")
-        call append(line(".")+4,"*    Date          : ".strftime("%c"))
-        call append(line(".")+5,"*    Description   : ")
-        call append(line(".")+6,"**************************************************/")
-        call append(line(".")+7,"")
-        call append(line(".")+8,"")
-    endif
-endfunc
+" autocmd BufNewFile *.py,*.sh exec :call WriteInfo()
+" func! WriteInfo()
+    " if &filetype == 'python'
+        " call setline(1,"#!/usr/bin/python3")
+        " call append(line("."),"")
+        " call append(line(".")+1,"###################################################################")
+        " call append(line(".")+2,"#    File name     : .expand("%:t"))
+        " call append(line(".")+3,"#    Author        : sha-ou")
+        " call append(line(".")+4,"#    Date          : .strftime("%c"))
+        " call append(line(".")+5,"#    Description   : ")
+        " call append(line(".")+6,"###################################################################")
+        " call append(line(".")+7,"")
+        " call append(line(".")+8,"")
+    " elseif &filetype == 'sh'
+        " call setline(1,"#!/bin/bash")
+        " call append(line("."),"")
+        " call append(line(".")+1,"###################################################################")
+        " call append(line(".")+2,"#    File name     : .expand("%:t"))
+        " call append(line(".")+3,"#    Author        : sha-ou")
+        " call append(line(".")+4,"#    Date          : .strftime("%c"))
+        " call append(line(".")+5,"#    Description   : ")
+        " call append(line(".")+6,"###################################################################")
+        " call append(line(".")+7,"")
+        " call append(line(".")+8,"")
+    " elseif &filetype == 'c'
+        " call setline(1,"/*  */")
+        " call append(line("."),"")
+        " call append(line(".")+1,"/*************************************************/")
+        " call append(line(".")+2,"*    File name     : .expand("%:t"))
+        " call append(line(".")+3,"*    Author        : sha-ou")
+        " call append(line(".")+4,"*    Date          : .strftime("%c"))
+        " call append(line(".")+5,"*    Description   : ")
+        " call append(line(".")+6,"**************************************************/")
+        " call append(line(".")+7,"")
+        " call append(line(".")+8,"")
+    " endif
+" endfunc
 
 " ----------Color Scheme---------- "
-colorscheme vividchalk
+" colorscheme vividchalk
