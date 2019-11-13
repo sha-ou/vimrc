@@ -3,6 +3,7 @@
 " install cppcheck for ale c synatix
 " install shellcheck for ale shell synatix
 " install ctags for tagbar
+" install cscope for c/cpp sourceinsight-like
 " pip install flake8 for ale python synatix (work @ version 3.7.7)
 " pip install autopep8 for vim-autopep8 (work @ version 1.4.4)
 " pip install vim-vint for vim script syntax checking
