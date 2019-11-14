@@ -131,7 +131,7 @@ set number                                                                " 显�
 set laststatus=2                                                          " 总是显示状态行
 set ruler                                                                 " 显示光标所在行列号
 set cursorline                                                            " 高亮光标所在行
-set cursorcolumn                                                          " 高亮光标所在列
+" set cursorcolumn                                                          " 高亮光标所在列
 set colorcolumn=81                                                        " 80字符一行
 
 " 标签
