@@ -7,11 +7,12 @@
 " pip install flake8 for ale python synatix (work @ version 3.7.7)
 " pip install autopep8 for vim-autopep8 (work @ version 1.4.4)
 " pip install vim-vint for vim script syntax checking
-let mapleader = ','                                                       " 设置mapleader
-let $VIMCONFDIR = expand("$HOME/.vim")
-let $PLUGINDIR  = expand("$VIMCONFDIR/bundle")
 
-if empty(glob(expand("$PLUGINDIR/plug.vim")))
+let mapleader = ','                                                       " 设置mapleader
+let $VIMCONFDIR = expand('$HOME/.vim')
+let $PLUGINDIR  = expand('$VIMCONFDIR/bundle')
+
+if empty(glob(expand('$PLUGINDIR/plug.vim')))
     silent !curl -fLo $PLUGINDIR/plug.vim --create-dirs
                 \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     autocmd VimEnter * PlugInstall --sync | source $VIMCONFDIR/vimrc
@@ -116,22 +117,19 @@ set autoread                                                              " 文�
 set clipboard+=unname                                                     "使用外部粘贴板
 
 set list                                                                  "行尾空白符显示为方块
-if (has("multy_byte") && encoding=="utf-8")
+if (has('multy_byte') && encoding==?'utf-8')
     set listchars=tab:»■,trail:■,extends:>,precedes:<,nbsp:-
 else
     set listchars=tab:>-,trail:-,extends:>,precedes:<,nbsp:-
 endif
-" set autochdir                                                             "auto change dir
 set nowrap                                                                "去掉折行
 
 
 "外观
 set number                                                                " 显示行号
-" set statusline=%F,%Y,%l/%L,%v,%{&ff}
 set laststatus=2                                                          " 总是显示状态行
 set ruler                                                                 " 显示光标所在行列号
 set cursorline                                                            " 高亮光标所在行
-" set cursorcolumn                                                          " 高亮光标所在列
 set colorcolumn=81                                                        " 80字符一行
 
 " 标签
@@ -158,15 +156,14 @@ set incsearch                                                             "搜�
 nmap <Leader><space> :nohlsearch<cr>
 
 " 括号自动补全
-" imap { {}<ESC>i                                                         " 括号自动补全
-" imap ( ()<ESC>i
-" imap [ []<ESC>i
-" :inoremap ' ''<ESC>i
-" :inoremap " ""<ESC>i
 imap （ （）<ESC>i
 imap 【 【】<ESC>i
 
-""""""""""""""""""""""""""""
+" termdebug
+let g:termdebug_wide = 1
+nnoremap <leader>d :packadd termdebug<CR><ESC>:Termdebug<CR>
+
+"""""""""""""""""""""""""""
 " scope setting
 """"""""""""""""""""""""""""
 if has('cscope')
@@ -197,23 +194,21 @@ endif
 """""""""""""""""""""""""""""
 map <F5> : call CompileRunGcc()<CR>
 func! CompileRunGcc()
-    exec "w"
-    if &filetype == 'c'
-        exec "!g++ % -o %<"
-        exec "!time ./%<"
-    elseif &filetype == 'sh'
+    exec 'w'
+    if &filetype ==? 'c' || &filetype ==? 'cpp'
+        exec '!g++ % -o %<'
+        exec '!time ./%<'
+    elseif &filetype ==? 'sh'
         :!time bash %
-    elseif &filetype == 'python'
-        exec "!time python3 %"
+    elseif &filetype ==? 'python'
+        exec '!time python3 %'
     endif
 endfunc
 
 
 " ---------Auto-Commands---------- "
-
 " Automaticaly source the Vimrc file on save
 " autocmd BufWritePost ~/.vim/vimrc source %
-
 " ---------Mappings---------- "
 nmap <Leader>ev :e ~/.vim/vimrc<cr>
 nmap <Leader>sv :source ~/.vim/vimrc<cr>
@@ -232,45 +227,3 @@ nmap <C-J> <C-W><C-J>
 nmap <C-K> <C-W><C-K>
 nmap <C-H> <C-W><C-H>
 nmap <C-L> <C-W><C-L>
-
-" ----------Autowitre---------- "
-" autocmd BufNewFile *.py,*.sh exec :call WriteInfo()
-" func! WriteInfo()
-    " if &filetype == 'python'
-        " call setline(1,"#!/usr/bin/python3")
-        " call append(line("."),"")
-        " call append(line(".")+1,"###################################################################")
-        " call append(line(".")+2,"#    File name     : .expand("%:t"))
-        " call append(line(".")+3,"#    Author        : sha-ou")
-        " call append(line(".")+4,"#    Date          : .strftime("%c"))
-        " call append(line(".")+5,"#    Description   : ")
-        " call append(line(".")+6,"###################################################################")
-        " call append(line(".")+7,"")
-        " call append(line(".")+8,"")
-    " elseif &filetype == 'sh'
-        " call setline(1,"#!/bin/bash")
-        " call append(line("."),"")
-        " call append(line(".")+1,"###################################################################")
-        " call append(line(".")+2,"#    File name     : .expand("%:t"))
-        " call append(line(".")+3,"#    Author        : sha-ou")
-        " call append(line(".")+4,"#    Date          : .strftime("%c"))
-        " call append(line(".")+5,"#    Description   : ")
-        " call append(line(".")+6,"###################################################################")
-        " call append(line(".")+7,"")
-        " call append(line(".")+8,"")
-    " elseif &filetype == 'c'
-        " call setline(1,"/*  */")
-        " call append(line("."),"")
-        " call append(line(".")+1,"/*************************************************/")
-        " call append(line(".")+2,"*    File name     : .expand("%:t"))
-        " call append(line(".")+3,"*    Author        : sha-ou")
-        " call append(line(".")+4,"*    Date          : .strftime("%c"))
-        " call append(line(".")+5,"*    Description   : ")
-        " call append(line(".")+6,"**************************************************/")
-        " call append(line(".")+7,"")
-        " call append(line(".")+8,"")
-    " endif
-" endfunc
-
-" ----------Color Scheme---------- "
-" colorscheme vividchalk
